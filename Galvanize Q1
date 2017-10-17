@@ -1,0 +1,54 @@
+#Running on a mac, so imported this way
+import os
+f = open(os.path.expanduser("~/Desktop/Galvanize Q1.txt"))
+
+#reading message
+message = f.read()
+
+
+####Counting total words#####
+#Splits up the words by spaces.
+words = message.split(" ")
+print words
+
+#Some words/numbers have commas/periods/explamations/questions etc, so we have to filter them out
+def noChars(aList):
+    for i in aList:
+        for ch in [".",",","?","!","'","\"",":",">","<","[","]","=","+"]:
+            if ch in i:
+                i = i.replace(ch,"")
+        yield i
+
+#We also want to filter out the numbers, since they aren't words
+def filterNums(aList):
+    for i in aList:
+        try:
+            int(i)
+            continue
+        except ValueError:
+            yield i
+
+#Remove the characters, then the numbers. This would give us all the words left
+cleanedWords = list(filterNums(noChars(words)))
+#Final clean to get rid of empty list elements.
+cleanedWords = filter(None, cleanedWords)
+print("Total number of words: %s" % len(cleanedWords))
+
+
+
+
+####Total number of Unique words####
+print("Total number of unique words: %s" % len(set(cleanedWords)))
+
+#Total number of sentences
+# sentences = message.split(".") #need to split on . ? !
+# print(sentences)
+#
+# #Need to filter sentences for None since we get a blank element in the list if the txt file ends with a period.
+# sentences = filter(None, sentences)
+# length = len(sentences)
+# print("There are %s sentences in the file." % length)
+
+#close the file out
+f.close()
+
