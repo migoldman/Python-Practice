@@ -2,19 +2,19 @@
 import os
 f = open(os.path.expanduser("~/Desktop/Galvanize Q1.txt"))
 
-#reading message
+#read file
 message = f.read()
+print("Message: %s" % message)
 
 
 ####Counting total words#####
-#Splits up the words by spaces.
+#Splits up message by spaces.
 words = message.split(" ")
-print words
 
 #Some words/numbers have commas/periods/explamations/questions etc, so we have to filter them out
 def noChars(aList):
     for i in aList:
-        for ch in [".",",","?","!","'","\"",":",">","<","[","]","=","+"]:
+        for ch in [".",",","?","!","'","\"",":",";",">","<","[","]","=","+"]:
             if ch in i:
                 i = i.replace(ch,"")
         yield i
@@ -38,16 +38,18 @@ print("Total number of words: %s" % len(cleanedWords))
 
 
 ####Total number of Unique words####
+#Take a set of the cleaned words to get a unique list
 print("Total number of unique words: %s" % len(set(cleanedWords)))
 
-#Total number of sentences
-# sentences = message.split(".") #need to split on . ? !
-# print(sentences)
-#
-# #Need to filter sentences for None since we get a blank element in the list if the txt file ends with a period.
-# sentences = filter(None, sentences)
-# length = len(sentences)
-# print("There are %s sentences in the file." % length)
+
+#####Total number of sentences####
+re.split("\W+",sentences) #need to split on . ? !  trying to find a way to cleanly do multiple endings at once
+print(sentences)
+
+#Need to filter sentences for None since we get a blank element in the list if the txt file ends with a period.
+sentences = filter(None, sentences)
+length = len(sentences)
+print("There are %s sentences in the file." % length)
 
 #close the file out
 f.close()
