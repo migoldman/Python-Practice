@@ -1,8 +1,10 @@
-#Running on a mac, so imported this way
-import os
+#Import libs
 import re
-f = open(os.path.expanduser("~/Desktop/Galvanize Q1.txt"))
-#read file
+
+#Insert file path to txt file here
+f = open(insertTextFileHere.txt)
+
+#Reading of file
 message = f.read()
 print("Message: %s" % message)
 
@@ -11,7 +13,7 @@ print("Message: %s" % message)
 #Splits up message by spaces.
 words = message.split(" ")
 
-#Some words/numbers have commas/periods/explamations/questions etc, so we have to filter them out
+#Some words/numbers have commas/periods/exclamations/questions etc, so we have to filter them out
 def noChars(aList):
     for i in aList:
         for ch in [".",",","?","!","'","\"",":",";",">","<","[","]","=","+"]:
