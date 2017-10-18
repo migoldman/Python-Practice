@@ -17,6 +17,7 @@ words = message.split(" ")
 def noChars(aList):
     for i in aList:
         for ch in [".",",","?","!","'","\"",":",";",">","<","[","]","=","+"]:
+            #If a character is found in a word, remove it
             if ch in i:
                 i = i.replace(ch,"")
         yield i
@@ -25,30 +26,29 @@ def noChars(aList):
 def filterNums(aList):
     for i in aList:
         try:
+            #try to convert the element into an integer
             int(i)
             continue
         except ValueError:
+            #if there is an error, it isn't a number, so yield it
             yield i
 
-#Remove the characters, then the numbers. This would give us all the words left
+#Remove the characters and the numbers. This would give us only words and blank elements
 cleanedWords = list(filterNums(noChars(words)))
-#Final clean to get rid of empty list elements.
+#Remove blank elements from the list
 cleanedWords = filter(None, cleanedWords)
 print("Total number of words: %s" % len(cleanedWords))
 
 
 ####Total number of Unique words####
-#Take a set of the cleaned words to get a unique list
+#Take the set of the cleaned words to get a unique list of words
 print("Total number of unique words: %s" % len(set(cleanedWords)))
 
 
 #####Total number of sentences####
-#Split on all types
+#Split the message into sentences
 sentences = re.split("[.?!]",message)
-#If there is a period/?/! at the end, remove the final
-sentences = filter(None, sentences)
-
-#Need to filter sentences for None since we get a blank element in the list if the txt file ends with a period.
+#Remove blank elements from the list. This is needed if the message ends in a . or ? or !
 sentences = filter(None, sentences)
 length = len(sentences)
 print("There are %s sentences in the file." % length)
