@@ -2,7 +2,6 @@
 import os
 f = open(os.path.expanduser("~/Desktop/Galvanize Q1.txt"))
 
-print "test"
 #read file
 message = f.read()
 print("Message: %s" % message)
