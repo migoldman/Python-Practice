@@ -1,7 +1,7 @@
 #Running on a mac, so imported this way
 import os
+import re
 f = open(os.path.expanduser("~/Desktop/Galvanize Q1.txt"))
-print ("test")
 #read file
 message = f.read()
 print("Message: %s" % message)
@@ -35,21 +35,32 @@ cleanedWords = filter(None, cleanedWords)
 print("Total number of words: %s" % len(cleanedWords))
 
 
-
-
 ####Total number of Unique words####
 #Take a set of the cleaned words to get a unique list
 print("Total number of unique words: %s" % len(set(cleanedWords)))
 
 
 #####Total number of sentences####
-re.split("\W+",sentences) #need to split on . ? !  trying to find a way to cleanly do multiple endings at once
-print(sentences)
+#Split on all types
+sentences = re.split("[.?!]",message)
+#If there is a period/?/! at the end, remove the final
+sentences = filter(None, sentences)
 
 #Need to filter sentences for None since we get a blank element in the list if the txt file ends with a period.
 sentences = filter(None, sentences)
 length = len(sentences)
 print("There are %s sentences in the file." % length)
+
+
+####Number of words in a sentence####
+wordlen = []
+for i in sentences:
+    i = filterNums(noChars(i.split()))
+    i = list(filter(None, i))
+    wordlen.append(float(len(i)))
+    avgwords = sum(wordlen)/len(wordlen)
+
+print ("There is an average of  %s words per sentence." % avgwords)
 
 #close the file out
 f.close()
